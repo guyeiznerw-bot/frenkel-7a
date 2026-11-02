@@ -423,6 +423,7 @@
       .then(function (res) {
         if (!res.ok) throw new Error(res.error || "failed");
         visitBox.classList.add("sent");
+        checkDock();
         visitBox.querySelector(".done").focus();
       })
       .catch(function () {
@@ -457,14 +458,20 @@
   sync();
 
   var visit = document.querySelector(".visit"), dock = document.querySelector(".dock");
-  if ("IntersectionObserver" in window) {
-    new IntersectionObserver(function (e) {
-      var past = !e[0].isIntersecting && e[0].boundingClientRect.top < 0;
-      dock.classList.toggle("on", past);
-      dock.setAttribute("aria-hidden", past ? "false" : "true");
-      dock.querySelector("a").tabIndex = past ? 0 : -1;
-    }).observe(visit);
+  // The button shows whenever the form is off screen, above or below, and goes away once the form is sent.
+  function setDock(show) {
+    dock.classList.toggle("on", show);
+    dock.setAttribute("aria-hidden", show ? "false" : "true");
+    dock.querySelector("a").tabIndex = show ? 0 : -1;
   }
+  function checkDock() {
+    var r = visit.getBoundingClientRect();
+    var formOnScreen = r.top < window.innerHeight && r.bottom > 0;
+    setDock(!formOnScreen && !visit.classList.contains("sent"));
+  }
+  window.addEventListener("scroll", function () { window.requestAnimationFrame(checkDock); }, { passive: true });
+  window.addEventListener("resize", checkDock);
+  checkDock();
 </script>
 </body>
 </html>
