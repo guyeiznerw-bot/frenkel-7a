@@ -9,17 +9,17 @@
 <meta property="og:title" content="דירת 2 חדרים להשכרה בפלורנטין">
 <meta property="og:description" content="ידידיה פרנקל 7א. 39 מ&quot;ר, קומה 4, 6,750 ₪ לחודש, כניסה ב-1.12.">
 <meta property="og:image" content="assets/03-living-room.jpg">
-<meta name="theme-color" content="#eceef1">
+<meta name="theme-color" content="#F4EFE3">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700&family=Frank+Ruhl+Libre:wght@500;700;900&display=swap" rel="stylesheet">
 <style>
   :root {
-    --paper: #eceef1;
-    --sheet: #ffffff;
+    --paper: #ebe4d4;
+    --sheet: #F4EFE3;
     --ink: #1c1b19;
     --ink-soft: #55524c;
-    --rule: #dcdfe4;
+    --rule: #d9cfbb;
     --stamp: #1f4a9c;
     --stamp-wash: #e8eef9;
     --go: #17784a;
@@ -44,13 +44,25 @@
 
   .sheet { max-width: 760px; margin: 0 auto; background: var(--sheet); min-height: 100vh; box-shadow: 0 1px 2px rgba(28,27,25,.06), 0 12px 40px rgba(28,27,25,.07); }
 
-  .hero { position: relative; margin: 0; }
-  .hero img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
-  .hero figcaption { position: absolute; inset-inline-start: 12px; bottom: 12px; background: rgba(28,27,25,.72); color: #fff; font-size: .8125rem; padding: 2px 10px; border-radius: 3px; }
+  .carousel { position: relative; }
+  .track { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; scrollbar-width: none; margin: 0; padding: 0; list-style: none; }
+  .track::-webkit-scrollbar { display: none; }
+  .track li { flex: 0 0 100%; scroll-snap-align: start; position: relative; }
+  .track img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+  .track figcaption { position: absolute; inset-inline-start: 12px; bottom: 12px; background: rgba(28,27,25,.72); color: #fff; font-size: .875rem; padding: 3px 10px; border-radius: 3px; }
+  .count { position: absolute; inset-inline-end: 12px; bottom: 12px; background: rgba(28,27,25,.72); color: #fff; font-size: .875rem; font-variant-numeric: tabular-nums; padding: 3px 10px; border-radius: 3px; }
+  .nav { position: absolute; top: 50%; transform: translateY(-50%); width: 44px; height: 44px; border-radius: 50%; border: 0; background: rgba(255,255,255,.88); color: var(--ink); display: grid; place-items: center; cursor: pointer; box-shadow: 0 2px 8px rgba(28,27,25,.2); }
+  .nav svg { width: 20px; height: 20px; }
+  .nav.prev { inset-inline-start: 10px; }
+  .nav.next { inset-inline-end: 10px; }
+  .nav:disabled { opacity: 0; pointer-events: none; }
+  .dots { display: flex; justify-content: center; gap: 8px; padding: 10px 0 0; }
+  .dots button { width: 9px; height: 9px; border-radius: 50%; border: 0; padding: 0; background: var(--rule); cursor: pointer; }
+  .dots button[aria-current="true"] { background: var(--stamp); }
 
   .intro { padding: 28px 22px 8px; }
   h1 { font: 900 clamp(1.75rem, 6vw, 2.5rem)/1.15 var(--serif); margin: 0 0 6px; text-wrap: balance; letter-spacing: -.01em; }
-  .where { color: var(--ink-soft); margin: 0 0 18px; font-size: 1.0625rem; }
+  .where { color: #3d3a34; margin: 0 0 18px; font-size: 1.25rem; font-weight: 600; line-height: 1.5; }
   .terms { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 22px; margin: 0; padding: 14px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
   .price { font: 700 1.875rem/1 var(--serif); font-variant-numeric: tabular-nums; }
   .price small { font: 600 1rem var(--sans); color: var(--ink-soft); }
@@ -74,7 +86,8 @@
 
   section.block { padding: 30px 22px 6px; }
   section.block h2 { font: 700 1.375rem/1.25 var(--serif); margin: 0 0 14px; }
-  .lede { max-width: 62ch; margin: 0; }
+  .lede p { max-width: 62ch; margin: 0 0 4px; }
+  .video-block { padding-top: 22px; }
 
   table.facts { width: 100%; border-collapse: collapse; font-size: 1rem; }
   .facts caption { text-align: start; font-size: .875rem; color: var(--ink-soft); padding-bottom: 6px; }
@@ -93,7 +106,7 @@
 
   footer { padding: 30px 22px 110px; color: var(--ink-soft); font-size: .875rem; }
 
-  .dock { position: fixed; inset-inline: 0; bottom: 0; padding: 10px 16px calc(10px + env(safe-area-inset-bottom)); background: rgba(255,255,255,.96); border-top: 1px solid var(--rule); display: flex; justify-content: center; transform: translateY(110%); transition: transform .32s cubic-bezier(.16,1,.3,1); z-index: 5; }
+  .dock { position: fixed; inset-inline: 0; bottom: 0; padding: 10px 16px calc(10px + env(safe-area-inset-bottom)); background: rgba(244,239,227,.97); border-top: 1px solid var(--rule); display: flex; justify-content: center; transform: translateY(110%); transition: transform .32s cubic-bezier(.16,1,.3,1); z-index: 5; }
   .dock.on { transform: none; }
   .dock .wa { margin: 0; max-width: 728px; }
 
@@ -113,10 +126,19 @@
 <body>
 <main class="sheet">
 
-  <figure class="hero">
-    <img src="assets/03-living-room.jpg" width="1134" height="848" alt="הסלון והמטבח: חלון גדול לכיוון מערב, ספה, ומטבח בחלל אחד">
-    <figcaption>הסלון והמטבח</figcaption>
-  </figure>
+  <section class="carousel" aria-roledescription="carousel" aria-label="תמונות הדירה">
+    <ul class="track">
+      <li><figure style="margin:0"><img src="assets/02-kitchen.jpg" width="1144" height="858" alt="המטבח: ארונות לבנים, כיריים, מקרר וחלון"><figcaption>המטבח</figcaption></figure></li>
+      <li><figure style="margin:0"><img src="assets/03-living-room.jpg" width="1134" height="848" loading="lazy" alt="הסלון והמטבח בחלל אחד, חלון גדול לכיוון מערב"><figcaption>הסלון</figcaption></figure></li>
+      <li><figure style="margin:0"><img src="assets/05-bedroom.jpg" width="1100" height="824" loading="lazy" alt="חדר השינה עם חלון גדול ונוף פתוח"><figcaption>חדר השינה</figcaption></figure></li>
+      <li><figure style="margin:0"><img src="assets/04-bathroom.jpg" width="1108" height="832" loading="lazy" alt="חדר הרחצה: כיור, מקלחון וחלון"><figcaption>חדר הרחצה</figcaption></figure></li>
+      <li><figure style="margin:0"><img src="assets/01-building-front.jpg" width="1820" height="1390" loading="lazy" alt="חזית הבניין ברחוב ידידיה פרנקל"><figcaption>חזית הבניין</figcaption></figure></li>
+    </ul>
+    <span class="count" aria-live="polite">1 / 5</span>
+    <button class="nav prev" type="button" aria-label="התמונה הקודמת"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>
+    <button class="nav next" type="button" aria-label="התמונה הבאה"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button>
+    <div class="dots"></div>
+  </section>
 
   <header class="intro">
     <h1>דירת 2 חדרים עורפית להשכרה בפלורנטין</h1>
@@ -150,7 +172,19 @@
 
   <section class="block" aria-labelledby="about-h">
     <h2 id="about-h">על הדירה</h2>
-    <p class="lede">דירת 2 חדרים עורפית בבניין חדש ברחוב ידידיה פרנקל, בלב פלורנטין. 39 מ"ר בקומה 4 מתוך 6, עם מעלית. חלונות גדולים ונוף פתוח לכיוון מערב. סלון ומטבח בחלל אחד, חדר שינה וחדר רחצה עם מקלחון וחלון. כיריים אינדוקציה, מיזוג מרכזי ותריסים חשמליים. חניה רובוטית וממ״ק בקומה. דייר אחד בלבד גר בה עד כה. כניסה ב-1.12, חוזה לשנה עם אופציה לשנה נוספת.</p>
+    <div class="lede">
+      <p>דירת 2 חדרים עורפית בבניין חדש ברחוב ידידיה פרנקל, בלב פלורנטין.</p>
+      <p>39 מ"ר בקומה 4 מתוך 6, עם מעלית.</p>
+      <p>חלונות גדולים ונוף פתוח לכיוון מערב.</p>
+      <p>סלון ומטבח בחלל אחד, חדר שינה וחדר רחצה עם מקלחון וחלון.</p>
+      <p>כיריים אינדוקציה, מיזוג מרכזי ותריסים חשמליים.</p>
+      <p>חניה רובוטית (עלולה להיתקע מדיי פעם) וממ״ק בקומה.</p>
+      <p>דייר אחד בלבד גר בה עד כה.</p>
+      <p>כניסה ב-1.12, חוזה לשנה עם אופציה לשנה נוספת.</p>
+    </div>
+    <div class="video-block gallery">
+      <figure class="video-wrap"><video src="assets/apartment-video.mp4" poster="assets/video-poster.jpg" controls muted playsinline loop preload="metadata" aria-label="סרטון סיור בדירה, 15 שניות, ללא קול"></video><figcaption><b>סרטון.</b> סיור קצר בדירה, 15 שניות</figcaption></figure>
+    </div>
   </section>
 
   <section class="block" aria-labelledby="facts-h">
@@ -163,7 +197,7 @@
         <tr><th scope="row">כיוון</th><td>עורפית, מערב</td></tr>
         <tr><th scope="row">חדר רחצה</th><td>מקלחון וחלון</td></tr>
         <tr><th scope="row">מטבח</th><td>כיריים אינדוקציה</td></tr>
-        <tr><th scope="row">מיזוג ותריסים</th><td>מיזוג מרכזי, תריסים חשמליים</td></tr>
+        <tr><th scope="row">מיזוג ותריסים</th><td>מיזוג מרכזי, תריסים חשמליים בכל חלונות בדירה</td></tr>
         <tr><th scope="row">חניה</th><td>חניה רובוטית</td></tr>
         <tr><th scope="row">מרחב מוגן</th><td>ממ״ק בקומה</td></tr>
         <tr><th scope="row">שכירות</th><td>6,750 ₪ לחודש</td></tr>
@@ -171,17 +205,6 @@
         <tr><th scope="row">כניסה</th><td>1.12</td></tr>
       </tbody>
     </table>
-  </section>
-
-  <section class="block" aria-labelledby="gal-h">
-    <h2 id="gal-h">תמונות וסרטון</h2>
-    <div class="gallery">
-      <figure class="wide"><img src="assets/02-kitchen.jpg" width="1144" height="858" loading="lazy" alt="המטבח: ארונות לבנים, כיריים, מקרר וחלון"><figcaption><b>תמונה 1.</b> המטבח</figcaption></figure>
-      <figure><img src="assets/05-bedroom.jpg" width="1100" height="824" loading="lazy" alt="חדר השינה עם חלון גדול ונוף פתוח"><figcaption><b>תמונה 2.</b> חדר השינה</figcaption></figure>
-      <figure><img src="assets/04-bathroom.jpg" width="1108" height="832" loading="lazy" alt="חדר הרחצה: כיור, מקלחון וחלון"><figcaption><b>תמונה 3.</b> חדר הרחצה</figcaption></figure>
-      <figure class="wide"><img src="assets/01-building-front.jpg" width="1820" height="1390" loading="lazy" alt="חזית הבניין ברחוב ידידיה פרנקל"><figcaption><b>תמונה 4.</b> חזית הבניין</figcaption></figure>
-      <figure class="video-wrap"><video src="assets/apartment-video.mp4" poster="assets/video-poster.jpg" controls muted playsinline loop preload="metadata" aria-label="סרטון סיור בדירה, 15 שניות, ללא קול"></video><figcaption><b>סרטון.</b> סיור קצר בדירה, 15 שניות</figcaption></figure>
-    </div>
   </section>
 
   <footer>
@@ -226,6 +249,30 @@
     });
   });
   refresh();
+
+  var track = document.querySelector(".track"), items = track.children, n = items.length;
+  var dots = document.querySelector(".dots"), count = document.querySelector(".count");
+  var prev = document.querySelector(".nav.prev"), next = document.querySelector(".nav.next");
+  for (var i = 0; i < n; i++) {
+    (function (k) {
+      var d = document.createElement("button");
+      d.type = "button"; d.setAttribute("aria-label", "תמונה " + (k + 1));
+      d.addEventListener("click", function () { go(k); });
+      dots.appendChild(d);
+    })(i);
+  }
+  function current() { return Math.round(Math.abs(track.scrollLeft) / track.clientWidth); }
+  function go(k) { items[Math.max(0, Math.min(n - 1, k))].scrollIntoView({ behavior: "smooth", block: "nearest", inline: "start" }); }
+  function sync() {
+    var c = current();
+    count.textContent = (c + 1) + " / " + n;
+    [].forEach.call(dots.children, function (d, k) { d.setAttribute("aria-current", k === c ? "true" : "false"); });
+    prev.disabled = c === 0; next.disabled = c === n - 1;
+  }
+  prev.addEventListener("click", function () { go(current() - 1); });
+  next.addEventListener("click", function () { go(current() + 1); });
+  track.addEventListener("scroll", function () { window.requestAnimationFrame(sync); }, { passive: true });
+  sync();
 
   var visit = document.querySelector(".visit"), dock = document.querySelector(".dock");
   if ("IntersectionObserver" in window) {
