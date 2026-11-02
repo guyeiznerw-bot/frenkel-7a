@@ -83,6 +83,34 @@
   .wa:active { transform: translateY(1px); }
   .wa svg { width: 22px; height: 22px; flex: none; }
   .hint { margin: 10px 0 0 !important; font-size: .875rem; color: #3b4a6b !important; }
+  .form { display: grid; gap: 16px; }
+  .field label, .field .lbl { display: block; font-weight: 700; font-size: .9375rem; margin-bottom: 6px; color: var(--ink); }
+  .field .opt { font-weight: 400; color: #3b4a6b; }
+  .field input[type=text], .field input[type=tel], .field textarea { width: 100%; min-height: 48px; padding: 10px 12px; border: 1.5px solid #b9c6e2; border-radius: var(--radius); background: var(--sheet); color: var(--ink); font: 400 1.0625rem/1.4 var(--sans); caret-color: var(--stamp); }
+  .field textarea { min-height: 84px; resize: vertical; }
+  .field input:focus, .field textarea:focus { outline: none; border-color: var(--stamp); box-shadow: 0 0 0 3px rgba(31,74,156,.18); }
+  .field input[aria-invalid=true] { border-color: #b3261e; }
+  .seg { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; border: 1.5px solid var(--stamp); border-radius: var(--radius); overflow: hidden; background: var(--sheet); }
+  .seg label { margin: 0; display: grid; place-items: center; min-height: 48px; color: var(--stamp); font-weight: 700; cursor: pointer; border-inline-start: 1px solid #b9c6e2; position: relative; transition: background-color .18s cubic-bezier(.16,1,.3,1), color .18s cubic-bezier(.16,1,.3,1); }
+  .seg label:first-of-type { border-inline-start: 0; }
+  .seg input { position: absolute; opacity: 0; pointer-events: none; }
+  .seg label:has(input:checked) { background: var(--stamp); color: #fff; }
+  .seg label:has(input:focus-visible) { outline: 3px solid var(--stamp); outline-offset: -3px; }
+  .err { color: #b3261e; font-size: .875rem; margin-top: 6px; display: none; }
+  .field.bad .err { display: block; }
+  .hp { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  .submit { appearance: none; border: 0; width: 100%; min-height: 54px; border-radius: var(--radius); background: var(--stamp); color: #fff; font: 700 1.125rem var(--sans); cursor: pointer; box-shadow: 0 2px 6px rgba(31,74,156,.25); transition: background-color .18s cubic-bezier(.16,1,.3,1); }
+  .submit:hover { background: #183c80; }
+  .submit[disabled] { opacity: .6; cursor: progress; }
+  .status { font-weight: 600; margin: 0 !important; }
+  .status.fail { color: #b3261e !important; }
+  .done { display: none; text-align: center; padding: 10px 0; }
+  .done h3 { font: 700 1.375rem/1.3 var(--serif); margin: 0 0 6px; }
+  .visit.sent .form { display: none; }
+  .visit.sent .done { display: block; }
+  .wa-end { margin: 26px 22px 0; padding-top: 22px; border-top: 1px solid var(--rule); }
+  .wa-end p { margin: 0 0 10px; color: var(--ink-soft); }
+  .dock .go { display: flex; align-items: center; justify-content: center; width: 100%; max-width: 728px; min-height: 52px; border-radius: var(--radius); background: var(--stamp); color: #fff; font: 700 1.0625rem var(--sans); text-decoration: none; }
 
   section.block { padding: 30px 22px 6px; }
   section.block h2 { font: 700 1.375rem/1.25 var(--serif); margin: 0 0 14px; }
@@ -108,12 +136,12 @@
 
   .dock { position: fixed; inset-inline: 0; bottom: 0; padding: 10px 16px calc(10px + env(safe-area-inset-bottom)); background: rgba(244,239,227,.97); border-top: 1px solid var(--rule); display: flex; justify-content: center; transform: translateY(110%); transition: transform .32s cubic-bezier(.16,1,.3,1); z-index: 5; }
   .dock.on { transform: none; }
-  .dock .wa { margin: 0; max-width: 728px; }
 
   @media (min-width: 640px) {
     .intro, section.block { padding-inline: 40px; }
     .visit { margin-inline: 40px; padding: 26px 26px 22px; }
     footer { padding-inline: 40px; }
+    .wa-end { margin-inline: 40px; }
     .gallery { grid-template-columns: 1fr 1fr; }
     .gallery .wide { grid-column: 1 / -1; }
     .video-wrap { grid-column: 1 / -1; margin-inline: auto; }
@@ -150,24 +178,75 @@
     </div>
   </header>
 
-  <section class="visit" aria-labelledby="visit-h">
+  <section class="visit" id="visit" aria-labelledby="visit-h">
     <span class="stamp" aria-hidden="true">ביקור<br>9.11</span>
     <h2 id="visit-h">ביקור בדירה ביום שני, 9.11</h2>
-    <p>בין 18:30 ל-19:30, בתיאום מראש בלבד.</p>
-    <span class="slots-label" id="slots-l">איזו שעה נוחה לכם?</span>
-    <div class="slots" role="group" aria-labelledby="slots-l">
-      <button class="slot" type="button" aria-pressed="false">18:30</button>
-      <button class="slot" type="button" aria-pressed="false">18:40</button>
-      <button class="slot" type="button" aria-pressed="false">18:50</button>
-      <button class="slot" type="button" aria-pressed="false">19:00</button>
-      <button class="slot" type="button" aria-pressed="false">19:10</button>
-      <button class="slot" type="button" aria-pressed="false">19:20</button>
+    <p>בין 18:30 ל-19:30, בתיאום מראש בלבד. אשמח לכמה פרטים, ואחזור אליכם לאישור השעה.</p>
+    <form class="form" novalidate>
+      <div class="field" data-f="slot">
+        <span class="lbl" id="slots-l">איזו שעה נוחה לכם?</span>
+        <div class="slots" role="group" aria-labelledby="slots-l">
+          <button class="slot" type="button" aria-pressed="false">18:30</button>
+          <button class="slot" type="button" aria-pressed="false">18:40</button>
+          <button class="slot" type="button" aria-pressed="false">18:50</button>
+          <button class="slot" type="button" aria-pressed="false">19:00</button>
+          <button class="slot" type="button" aria-pressed="false">19:10</button>
+          <button class="slot" type="button" aria-pressed="false">19:20</button>
+        </div>
+        <div class="err">צריך לבחור שעה.</div>
+      </div>
+      <div class="field" data-f="name">
+        <label for="f-name">שם</label>
+        <input id="f-name" name="name" type="text" autocomplete="name" maxlength="80" required>
+        <div class="err">צריך למלא שם.</div>
+      </div>
+      <div class="field" data-f="phone">
+        <label for="f-phone">טלפון</label>
+        <input id="f-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" maxlength="13" dir="ltr" placeholder="050-0000000" required>
+        <div class="err">צריך מספר טלפון ישראלי, למשל 050-1234567.</div>
+      </div>
+      <div class="field" data-f="occupants">
+        <span class="lbl" id="occ-l">כמה תגורו בדירה?</span>
+        <div class="seg" role="radiogroup" aria-labelledby="occ-l">
+          <label><input type="radio" name="occupants" value="1"><span>1</span></label>
+          <label><input type="radio" name="occupants" value="2"><span>2</span></label>
+          <label><input type="radio" name="occupants" value="3 ומעלה"><span>3 ומעלה</span></label>
+        </div>
+        <div class="err">צריך לבחור.</div>
+      </div>
+      <div class="field" data-f="job">
+        <label for="f-job">במה אתם עובדים?</label>
+        <input id="f-job" name="job" type="text" maxlength="120" required>
+        <div class="err">צריך למלא.</div>
+      </div>
+      <div class="field" data-f="pets">
+        <span class="lbl" id="pets-l">בעלי חיים</span>
+        <div class="seg" role="radiogroup" aria-labelledby="pets-l">
+          <label><input type="radio" name="pets" value="אין"><span>אין</span></label>
+          <label><input type="radio" name="pets" value="יש"><span>יש</span></label>
+        </div>
+        <div class="err">צריך לבחור.</div>
+      </div>
+      <div class="field" data-f="petsDetail" hidden>
+        <label for="f-pets">איזה? <span class="opt">(לא חובה)</span></label>
+        <input id="f-pets" name="petsDetail" type="text" maxlength="120">
+      </div>
+      <div class="field">
+        <label for="f-movein">מתי תרצו להיכנס? <span class="opt">(לא חובה)</span></label>
+        <input id="f-movein" name="movein" type="text" maxlength="40" placeholder="1.12">
+      </div>
+      <div class="field">
+        <label for="f-notes">משהו נוסף? <span class="opt">(לא חובה)</span></label>
+        <textarea id="f-notes" name="notes" maxlength="500"></textarea>
+      </div>
+      <div class="hp" aria-hidden="true"><label>Website<input name="website" tabindex="-1" autocomplete="off"></label></div>
+      <button class="submit" type="submit">שליחת הפרטים</button>
+      <p class="status" role="status" aria-live="polite"></p>
+    </form>
+    <div class="done" tabindex="-1">
+      <h3>תודה, הפרטים התקבלו</h3>
+      <p>אחזור אליכם לאישור השעה 🙏</p>
     </div>
-    <a class="wa js-wa" href="#" target="_blank" rel="noopener">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20l1.3-3.9A8 8 0 1 1 8 18.7L4 20z"/><path d="M9.2 9.3c.3 1.9 1.6 3.3 3.5 3.9"/></svg>
-      <span class="js-wa-label">לתיאום ביקור בוואטסאפ</span>
-    </a>
-    <p class="hint">ההודעה נפתחת עם השעה שבחרתם וכמה שאלות קצרות. אחזור אליכם לאישור השעה.</p>
   </section>
 
   <section class="block" aria-labelledby="about-h">
@@ -204,6 +283,7 @@
         <tr><th scope="row">חדר רחצה</th><td>מקלחון וחלון</td></tr>
         <tr><th scope="row">מטבח</th><td>כיריים אינדוקציה</td></tr>
         <tr><th scope="row">מיזוג ותריסים</th><td>מיזוג מרכזי, תריסים חשמליים בכל חלונות בדירה</td></tr>
+        <tr><th scope="row">מים חמים</th><td>דוד חשמלי</td></tr>
         <tr><th scope="row">חניה</th><td>חניה רובוטית</td></tr>
         <tr><th scope="row">מרחב מוגן</th><td>ממ״ק בקומה</td></tr>
         <tr><th scope="row">שכירות</th><td>6,750 ₪ לחודש</td></tr>
@@ -213,48 +293,106 @@
     </table>
   </section>
 
+  <section class="wa-end" aria-label="וואטסאפ">
+    <p>מעדיפים לכתוב בוואטסאפ?</p>
+    <a class="wa js-wa" href="#" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20l1.3-3.9A8 8 0 1 1 8 18.7L4 20z"/><path d="M9.2 9.3c.3 1.9 1.6 3.3 3.5 3.9"/></svg>
+      <span>שליחת הודעה בוואטסאפ</span>
+    </a>
+  </section>
+
   <footer>
     ידידיה פרנקל 7א, פלורנטין, תל אביב. התמונות צולמו כשהשוכר הנוכחי גר בדירה.
   </footer>
 </main>
 
 <div class="dock" aria-hidden="true">
-  <a class="wa js-wa" href="#" target="_blank" rel="noopener" tabindex="-1">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20l1.3-3.9A8 8 0 1 1 8 18.7L4 20z"/><path d="M9.2 9.3c.3 1.9 1.6 3.3 3.5 3.9"/></svg>
-    <span class="js-wa-label">לתיאום ביקור בוואטסאפ</span>
-  </a>
+  <a class="go" href="#visit" tabindex="-1">לקביעת ביקור ביום שני, 9.11</a>
 </div>
 
 <script>
   // Owner's WhatsApp number in international format, digits only (972 + number without the leading 0).
   var PHONE = "972526836382";
 
+  // Google Apps Script web app that adds the row to the "פונים" sheet.
+  var SHEET_URL = "PASTE_WEB_APP_URL";
+
   var slot = "";
-  function message() {
-    var time = slot ? "בשעה " + slot : "(השעה שנוחה לי: )";
-    return "היי, ראיתי את הדירה בידידיה פרנקל 7א ואשמח לבקר ביום שני, 9.11, " + time + ".\n" +
-      "שם: \n" +
-      "כמה נגור בדירה: \n" +
-      "במה אנחנו עובדים: \n" +
-      "בעלי חיים: ";
-  }
-  function refresh() {
-    var href = "https://wa.me/" + PHONE + "?text=" + encodeURIComponent(message());
-    document.querySelectorAll(".js-wa").forEach(function (a) { a.href = href; });
-    document.querySelectorAll(".js-wa-label").forEach(function (s) {
-      s.textContent = slot ? "לתיאום ביקור ב-" + slot + " בוואטסאפ" : "לתיאום ביקור בוואטסאפ";
-    });
-  }
+  document.querySelectorAll(".js-wa").forEach(function (a) {
+    a.href = "https://wa.me/" + PHONE + "?text=" + encodeURIComponent("היי, ראיתי את הדירה בידידיה פרנקל 7א ואשמח לפרטים על ביקור ביום שני, 9.11.");
+  });
   document.querySelectorAll(".slot").forEach(function (b) {
     b.addEventListener("click", function () {
       var on = b.getAttribute("aria-pressed") !== "true";
       document.querySelectorAll(".slot").forEach(function (o) { o.setAttribute("aria-pressed", "false"); });
       b.setAttribute("aria-pressed", on ? "true" : "false");
       slot = on ? b.textContent : "";
-      refresh();
+      if (slot) mark("slot", true);
     });
   });
-  refresh();
+
+  var form = document.querySelector(".form"), visitBox = document.querySelector(".visit");
+  var statusEl = form.querySelector(".status"), submitBtn = form.querySelector(".submit");
+  form.querySelectorAll("input[name=pets]").forEach(function (r) {
+    r.addEventListener("change", function () {
+      form.querySelector("[data-f=petsDetail]").hidden = r.value !== "יש";
+    });
+  });
+  function val(n) {
+    var el = form.elements[n];
+    if (!el) return "";
+    if (el.length !== undefined && !el.tagName) { var c = [].filter.call(el, function (r) { return r.checked; })[0]; return c ? c.value : ""; }
+    return String(el.value || "").trim();
+  }
+  function mark(f, ok) {
+    var box = form.querySelector('[data-f="' + f + '"]');
+    if (!box) return;
+    box.classList.toggle("bad", !ok);
+    var inp = box.querySelector("input");
+    if (inp && inp.type !== "radio") inp.setAttribute("aria-invalid", ok ? "false" : "true");
+  }
+  function phoneDigits() { return val("phone").replace(/[^0-9]/g, ""); }
+  form.addEventListener("submit", function (ev) {
+    ev.preventDefault();
+    var checks = {
+      slot: !!slot,
+      name: !!val("name"),
+      phone: /^0\d{8,9}$/.test(phoneDigits()),
+      occupants: !!val("occupants"),
+      job: !!val("job"),
+      pets: !!val("pets")
+    };
+    var first = null;
+    Object.keys(checks).forEach(function (k) { mark(k, checks[k]); if (!checks[k] && !first) first = k; });
+    if (first) {
+      statusEl.className = "status fail";
+      statusEl.textContent = "חסרים כמה פרטים, סימנתי אותם באדום.";
+      var box = form.querySelector('[data-f="' + first + '"]');
+      box.scrollIntoView({ behavior: "smooth", block: "center" });
+      var focusable = box.querySelector("input, button");
+      if (focusable) focusable.focus({ preventScroll: true });
+      return;
+    }
+    submitBtn.disabled = true; submitBtn.textContent = "שולח...";
+    statusEl.className = "status"; statusEl.textContent = "";
+    var payload = {
+      slot: slot, name: val("name"), phone: phoneDigits(), occupants: val("occupants"),
+      job: val("job"), pets: val("pets"), petsDetail: val("petsDetail"),
+      movein: val("movein"), notes: val("notes"), website: val("website")
+    };
+    fetch(SHEET_URL, { method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify(payload) })
+      .then(function (r) { return r.json(); })
+      .then(function (res) {
+        if (!res.ok) throw new Error(res.error || "failed");
+        visitBox.classList.add("sent");
+        visitBox.querySelector(".done").focus();
+      })
+      .catch(function () {
+        statusEl.className = "status fail";
+        statusEl.textContent = "השליחה לא עברה. אפשר לנסות שוב, או לשלוח לי הודעה בוואטסאפ בתחתית העמוד.";
+      })
+      .finally(function () { submitBtn.disabled = false; submitBtn.textContent = "שליחת הפרטים"; });
+  });
 
   var track = document.querySelector(".track"), items = track.children, n = items.length;
   var dots = document.querySelector(".dots"), count = document.querySelector(".count");
