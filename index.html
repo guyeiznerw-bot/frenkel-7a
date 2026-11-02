@@ -120,7 +120,11 @@
   section.block { padding: 30px 22px 6px; }
   section.block h2 { font: 800 1.5rem/1.25 var(--serif); margin: 0 0 14px; color: var(--pine); }
   .lede p { max-width: 62ch; margin: 0 0 4px; }
-  .video-block { padding-top: 22px; }
+  .video-sec { padding: 24px 22px 30px; }
+  .video-block { display: flex; flex-direction: column; align-items: center; }
+  .video-block figure { margin: 0; width: 100%; max-width: 340px; }
+  .video-block video { width: 100%; aspect-ratio: 480 / 848; object-fit: cover; border-radius: var(--radius); background: var(--rule); }
+  .video-block figcaption { font-size: .875rem; color: var(--ink-soft); margin-top: 8px; text-align: center; }
 
   table.facts { width: 100%; border-collapse: collapse; font-size: 1rem; }
   .facts caption { text-align: start; font-size: .875rem; color: var(--ink-soft); padding-bottom: 6px; }
@@ -184,8 +188,33 @@
     </div>
   </header>
 
+  <section class="block" aria-labelledby="about-h">
+    <h2 id="about-h">על הדירה</h2>
+    <div class="lede">
+      <p>דירת 2 חדרים עורפית בבניין חדש ברחוב ידידיה פרנקל, בלב פלורנטין.</p>
+      <p>הרחוב מחבר בין הרחובות המסחריים הוותיקים של השכונה לבין אזורי המגורים החדשים, ולאורכו בתי קפה, מסעדות ועסקים שכונתיים.</p>
+      <p>שוק לוינסקי, נווה צדק ומרכז העסקים של תל אביב קרובים, וגם קווי תחבורה ציבורית.</p>
+      <p>39 מ"ר בקומה 4 מתוך 6, עם מעלית.</p>
+      <p>הבניין נבנה בבנייה ירוקה, ויש בו 23 דירות ושתי חנויות בקומת הקרקע.</p>
+      <p>חלונות גדולים ונוף פתוח לכיוון מערב.</p>
+      <p>פתחי הזכוכית הרחבים מכניסים הרבה אור, והחלונות פונים אל השקיעה.</p>
+      <p>סלון ומטבח בחלל אחד, חדר שינה וחדר רחצה עם מקלחון וחלון.</p>
+      <p>הרצפה מרוצפת בפורצלן גדול במידות 80 על 80, ובמטבח ארונות עץ ומשטח עבודה.</p>
+      <p>כיריים אינדוקציה, מיזוג מרכזי ותריסים חשמליים.</p>
+      <p>חניה רובוטית (עלולה להיתקע מדיי פעם) וממ״ק בקומה.</p>
+      <p>דייר אחד בלבד גר בה עד כה.</p>
+      <p>הדירה מתוחזקת היטב ומוכנה לכניסה.</p>
+      <p>כניסה ב-1.12, חוזה לשנה עם אופציה לשנה נוספת.</p>
+    </div>
+  </section>
+
+  <section class="video-sec" aria-label="סרטון">
+    <div class="video-block">
+      <figure class="video-wrap"><video src="assets/apartment-video.mp4" poster="assets/video-poster.jpg" controls muted playsinline loop preload="metadata" aria-label="סרטון סיור בדירה, 15 שניות, ללא קול"></video><figcaption><b>סרטון.</b> סיור קצר בדירה, 15 שניות</figcaption></figure>
+    </div>
+  </section>
+
   <section class="visit" id="visit" aria-labelledby="visit-h">
-    <span class="stamp" aria-hidden="true">ביקור<br>9.11</span>
     <h2 id="visit-h">ביקור בדירה ביום שני, 9.11</h2>
     <p>בין 18:30 ל-19:30, בתיאום מראש בלבד. אשמח לכמה פרטים, ואחזור אליכם לאישור השעה.</p>
     <form class="form" novalidate>
@@ -252,29 +281,6 @@
     <div class="done" tabindex="-1">
       <h3>תודה, הפרטים התקבלו</h3>
       <p>אחזור אליכם לאישור השעה 🙏</p>
-    </div>
-  </section>
-
-  <section class="block" aria-labelledby="about-h">
-    <h2 id="about-h">על הדירה</h2>
-    <div class="lede">
-      <p>דירת 2 חדרים עורפית בבניין חדש ברחוב ידידיה פרנקל, בלב פלורנטין.</p>
-      <p>הרחוב מחבר בין הרחובות המסחריים הוותיקים של השכונה לבין אזורי המגורים החדשים, ולאורכו בתי קפה, מסעדות ועסקים שכונתיים.</p>
-      <p>שוק לוינסקי, נווה צדק ומרכז העסקים של תל אביב קרובים, וגם קווי תחבורה ציבורית.</p>
-      <p>39 מ"ר בקומה 4 מתוך 6, עם מעלית.</p>
-      <p>הבניין נבנה בבנייה ירוקה, ויש בו 23 דירות ושתי חנויות בקומת הקרקע.</p>
-      <p>חלונות גדולים ונוף פתוח לכיוון מערב.</p>
-      <p>פתחי הזכוכית הרחבים מכניסים הרבה אור, והחלונות פונים אל השקיעה.</p>
-      <p>סלון ומטבח בחלל אחד, חדר שינה וחדר רחצה עם מקלחון וחלון.</p>
-      <p>הרצפה מרוצפת בפורצלן גדול במידות 80 על 80, ובמטבח ארונות עץ ומשטח עבודה.</p>
-      <p>כיריים אינדוקציה, מיזוג מרכזי ותריסים חשמליים.</p>
-      <p>חניה רובוטית (עלולה להיתקע מדיי פעם) וממ״ק בקומה.</p>
-      <p>דייר אחד בלבד גר בה עד כה.</p>
-      <p>הדירה מתוחזקת היטב ומוכנה לכניסה.</p>
-      <p>כניסה ב-1.12, חוזה לשנה עם אופציה לשנה נוספת.</p>
-    </div>
-    <div class="video-block gallery">
-      <figure class="video-wrap"><video src="assets/apartment-video.mp4" poster="assets/video-poster.jpg" controls muted playsinline loop preload="metadata" aria-label="סרטון סיור בדירה, 15 שניות, ללא קול"></video><figcaption><b>סרטון.</b> סיור קצר בדירה, 15 שניות</figcaption></figure>
     </div>
   </section>
 
