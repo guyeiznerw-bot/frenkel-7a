@@ -71,7 +71,9 @@
   .price { font: 800 2rem/1 var(--serif); color: var(--sky); font-variant-numeric: tabular-nums; }
   .price small { font: 500 1rem var(--sans); color: var(--mint); }
   .movein { font-weight: 700; color: #fff; }
-  .terms > span:last-child { color: var(--mint); font-weight: 500; }
+  .terms { flex-direction: column; align-items: center; text-align: center; gap: 10px; }
+  .meta { display: inline-flex; align-items: center; gap: 12px; color: var(--mint); font-weight: 500; font-size: 1.0625rem; }
+  .sep { opacity: .5; }
 
   .visit { margin: 0; padding: 26px 22px 24px; background: var(--pine-2); color: var(--mint); position: relative; }
   .visit h2 { font: 800 clamp(1.25rem, 5.4vw, 1.5rem)/1.25 var(--serif); margin: 0 0 6px; color: #fff; text-wrap: balance; }
@@ -127,6 +129,7 @@
   section.block { padding: 30px 22px 6px; }
   section.block h2 { font: 800 1.5rem/1.25 var(--serif); margin: 0 0 14px; color: var(--pine); }
   .lede p { max-width: 62ch; margin: 0 0 4px; }
+  .lede .para + .para { margin-top: 18px; }
   .video-sec { padding: 24px 22px 30px; }
   .video-block { display: flex; flex-direction: column; align-items: center; }
   .video-block figure { margin: 0; width: 100%; max-width: 340px; }
@@ -159,6 +162,7 @@
     .intro { padding-inline: 40px; }
     footer { padding-inline: 40px; }
     .wa-end { margin-inline: 40px; }
+    .terms { flex-direction: row; justify-content: flex-start; align-items: baseline; gap: 6px 22px; text-align: start; }
     .gallery { grid-template-columns: 1fr 1fr; }
     .gallery .wide { grid-column: 1 / -1; }
     .video-wrap { grid-column: 1 / -1; margin-inline: auto; }
@@ -190,27 +194,34 @@
     <p class="where">ידידיה פרנקל 7א, תל אביב · בניין חדש · קומה 4 מתוך 6, עם מעלית</p>
     <div class="terms">
       <span class="price">6,750 ₪ <small>לחודש</small></span>
-      <span class="movein">כניסה ב-1.12</span>
-      <span>39 מ"ר</span>
+      <span class="meta"><span class="movein">כניסה ב-1.12</span><span class="sep" aria-hidden="true">|</span><span>39 מ״ר</span></span>
     </div>
   </header>
 
   <section class="block" aria-labelledby="about-h">
     <h2 id="about-h">על הדירה</h2>
     <div class="lede">
-      <p>דירת 2 חדרים עורפית בבניין חדש ברחוב ידידיה פרנקל, בלב פלורנטין.</p>
-      <p>הרחוב מחבר בין הרחובות המסחריים הוותיקים של השכונה לבין אזורי המגורים החדשים, ולאורכו בתי קפה, מסעדות ועסקים שכונתיים.</p>
-      <p>שוק לוינסקי, נווה צדק ומרכז העסקים של תל אביב במרחק הליכה קצרה, וגם קווי תחבורה ציבורית כולל הרכבת הקלה.</p>
-      <p>הדירה בגודל 39 מ"ר בקומה 4 מתוך 6, עם מעלית.</p>
-      <p>הבניין נבנה בבנייה ירוקה, ויש בו 23 דירות.</p>
-      <p>חלונות גדולים בסלון ובחדר השינה ונוף לכיוון מערב.</p>
-      <p>פתחי הזכוכית הרחבים מכניסים הרבה אור טבעי, והחלונות פונים אל השקיעה.</p>
-      <p>הסלון והמטבח בחלל אחד, חדר שינה וחדר רחצה עם מקלחון וחלון לאיוורור.</p>
-      <p>כיריים אינדוקציה, מיזוג מרכזי ותריסים חשמליים בכל החלונות.</p>
-      <p>חניה רובוטית (אם כי היא עלולה להיתקע מדיי פעם) וממ״ק בקומה.</p>
-      <p>דייר אחד בלבד גר בה עד כה.</p>
-      <p>הדירה מתוחזקת היטב ומוכנה לכניסה.</p>
-      <p>כניסה ב-1.12, חוזה לשנה עם אופציה לשנה נוספת.</p>
+      <div class="para">
+        <p>דירת 2 חדרים עורפית בבניין חדש ברחוב ידידיה פרנקל, בלב פלורנטין.</p>
+        <p>הרחוב מחבר בין הרחובות המסחריים הוותיקים של השכונה לבין אזורי המגורים החדשים, ולאורכו בתי קפה, מסעדות ועסקים שכונתיים.</p>
+        <p>שוק לוינסקי, נווה צדק ומרכז העסקים של תל אביב במרחק הליכה קצרה, וגם קווי תחבורה ציבורית כולל הרכבת הקלה.</p>
+      </div>
+      <div class="para">
+        <p>הדירה בגודל 39 מ"ר בקומה 4 מתוך 6, עם מעלית.</p>
+        <p>הבניין נבנה בבנייה ירוקה, ויש בו 23 דירות.</p>
+        <p>חלונות גדולים בסלון ובחדר השינה ונוף לכיוון מערב.</p>
+        <p>פתחי הזכוכית הרחבים מכניסים הרבה אור טבעי, והחלונות פונים אל השקיעה.</p>
+        <p>הסלון והמטבח בחלל אחד, חדר שינה וחדר רחצה עם מקלחון וחלון לאיוורור.</p>
+      </div>
+      <div class="para">
+        <p>כיריים אינדוקציה, מיזוג מרכזי ותריסים חשמליים בכל החלונות.</p>
+        <p>חניה רובוטית (אם כי היא עלולה להיתקע מדיי פעם) וממ״ק בקומה.</p>
+      </div>
+      <div class="para">
+        <p>דייר אחד בלבד גר בה עד כה.</p>
+        <p>הדירה מתוחזקת היטב ומוכנה לכניסה.</p>
+        <p>כניסה ב-1.12, חוזה לשנה עם אופציה לשנה נוספת.</p>
+      </div>
     </div>
   </section>
 
