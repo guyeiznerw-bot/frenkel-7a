@@ -74,7 +74,7 @@
   .terms > span:last-child { color: var(--mint); font-weight: 500; }
 
   .visit { margin: 0; padding: 26px 22px 24px; background: var(--pine-2); color: var(--mint); position: relative; }
-  .visit h2 { font: 800 1.5rem/1.25 var(--serif); margin: 0 0 4px; color: #fff; }
+  .visit h2 { font: 800 clamp(1.25rem, 5.4vw, 1.5rem)/1.25 var(--serif); margin: 0 0 6px; color: #fff; text-wrap: balance; }
   .visit p { margin: 0 0 18px; color: var(--mint); }
   .stamp { position: absolute; inset-inline-end: 16px; top: -16px; transform: rotate(-6deg); border: 0; color: var(--pine); background: var(--sky); box-shadow: 0 3px 10px rgba(0,0,0,.25); font: 700 .8125rem/1.2 var(--sans); padding: 5px 10px; border-radius: 4px; text-align: center; }
   .slots-label { font-weight: 700; font-size: .9375rem; margin-bottom: 8px; display: block; }
@@ -88,7 +88,10 @@
   .wa:active { transform: translateY(1px); }
   .wa svg { width: 22px; height: 22px; flex: none; }
   .hint { margin: 10px 0 0 !important; font-size: .875rem; color: #3b4a6b !important; }
-  .form { display: grid; gap: 12px; max-width: 560px; text-align: start; }
+  .form { display: grid; gap: 12px; text-align: start; }
+  .visit > * { max-width: 560px; margin-inline: auto; }
+  .visit [data-f="slot"] { margin-bottom: 8px; }
+  .visit .intro-l { margin-bottom: 2px !important; }
   .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
   .visit, .visit h2, .visit p, .field label, .field .lbl { text-align: start; }
   .field label, .field .lbl { display: block; font-weight: 700; font-size: .875rem; margin-bottom: 4px; color: #fff; }
@@ -217,8 +220,9 @@
   </section>
 
   <section class="visit" id="visit" aria-labelledby="visit-h">
-    <h2 id="visit-h">ביקור בדירה ביום שני, 9.11</h2>
-    <p>בין 18:30 ל-19:30, בתיאום מראש בלבד. אשמח לכמה פרטים, ואחזור אליכם לאישור השעה.</p>
+    <h2 id="visit-h">לתיאום ביקור בדירה ביום שני, 9.11</h2>
+    <p class="intro-l">בין 18:30 ל-19:30, בתיאום מראש בלבד.</p>
+    <p>אשמח לכמה פרטים, ואחזור אליכם לאישור השעה.</p>
     <form class="form" novalidate>
       <div class="field" data-f="slot">
         <span class="lbl" id="slots-l">איזו שעה נוחה לכם?</span>
@@ -244,14 +248,24 @@
         <div class="err">צריך מספר טלפון ישראלי, למשל 050-1234567.</div>
       </div>
       </div>
+      <div class="row2">
       <div class="field" data-f="occupants">
         <span class="lbl" id="occ-l">כמה תגורו בדירה?</span>
         <div class="seg" role="radiogroup" aria-labelledby="occ-l">
           <label><input type="radio" name="occupants" value="1"><span>1</span></label>
           <label><input type="radio" name="occupants" value="2"><span>2</span></label>
-          <label><input type="radio" name="occupants" value="3 ומעלה"><span>3 ומעלה</span></label>
+          <label><input type="radio" name="occupants" value="3 ומעלה"><span><bdi dir="ltr">3+</bdi></span></label>
         </div>
         <div class="err">צריך לבחור.</div>
+      </div>
+      <div class="field" data-f="pets">
+        <span class="lbl" id="pets-l">בעלי חיים</span>
+        <div class="seg" role="radiogroup" aria-labelledby="pets-l">
+          <label><input type="radio" name="pets" value="אין"><span>אין</span></label>
+          <label><input type="radio" name="pets" value="יש"><span>יש</span></label>
+        </div>
+        <div class="err">צריך לבחור.</div>
+      </div>
       </div>
       <div class="row2">
       <div class="field" data-f="job">
@@ -264,21 +278,13 @@
         <input id="f-movein" name="movein" type="text" maxlength="40" placeholder="1.12">
       </div>
       </div>
-      <div class="field" data-f="pets">
-        <span class="lbl" id="pets-l">בעלי חיים</span>
-        <div class="seg" role="radiogroup" aria-labelledby="pets-l">
-          <label><input type="radio" name="pets" value="אין"><span>אין</span></label>
-          <label><input type="radio" name="pets" value="יש"><span>יש</span></label>
-        </div>
-        <div class="err">צריך לבחור.</div>
-      </div>
       <div class="field" data-f="petsDetail" hidden>
         <label for="f-pets">איזה? <span class="opt">(לא חובה)</span></label>
         <input id="f-pets" name="petsDetail" type="text" maxlength="120">
       </div>
       <div class="field">
         <label for="f-notes">משהו נוסף? <span class="opt">(לא חובה)</span></label>
-        <textarea id="f-notes" name="notes" maxlength="500"></textarea>
+        <input id="f-notes" name="notes" type="text" maxlength="500">
       </div>
       <div class="hp" aria-hidden="true"><label>Website<input name="website" tabindex="-1" autocomplete="off"></label></div>
       <button class="submit" type="submit">שליחת הפרטים</button>
