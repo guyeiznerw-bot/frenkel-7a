@@ -80,7 +80,7 @@
   .visit p { margin: 0 0 18px; color: var(--mint); }
   .stamp { position: absolute; inset-inline-end: 16px; top: -16px; transform: rotate(-6deg); border: 0; color: var(--pine); background: var(--sky); box-shadow: 0 3px 10px rgba(0,0,0,.25); font: 700 .8125rem/1.2 var(--sans); padding: 5px 10px; border-radius: 4px; text-align: center; }
   .slots-label { font-weight: 700; font-size: .9375rem; margin-bottom: 8px; display: block; }
-  .slots { display: grid; grid-template-columns: repeat(6, 1fr); gap: 0; border: 1.5px solid rgba(227,237,231,.55); border-radius: var(--radius); overflow: hidden; background: transparent; }
+  .slots { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0; border: 1.5px solid rgba(227,237,231,.55); border-radius: var(--radius); overflow: hidden; background: transparent; }
   .slot { appearance: none; border: 0; border-inline-start: 1px solid rgba(227,237,231,.3); background: transparent; color: var(--sheet); font: 700 clamp(.8rem, 3.4vw, 1rem)/1 var(--sans); font-variant-numeric: tabular-nums; min-height: 44px; padding: 0 2px; cursor: pointer; transition: background-color .18s cubic-bezier(.16,1,.3,1), color .18s cubic-bezier(.16,1,.3,1); }
   .slot:first-child { border-inline-start: 0; }
   .slot:hover { background: rgba(227,237,231,.1); }
@@ -241,7 +241,6 @@
       <div class="field" data-f="slot">
         <span class="lbl" id="slots-l">איזו שעה נוחה לכם?</span>
         <div class="slots" role="group" aria-labelledby="slots-l">
-          <button class="slot" type="button" aria-pressed="false">18:30</button>
           <button class="slot" type="button" aria-pressed="false">18:40</button>
           <button class="slot" type="button" aria-pressed="false">18:50</button>
           <button class="slot" type="button" aria-pressed="false">19:00</button>
