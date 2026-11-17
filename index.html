@@ -173,6 +173,46 @@
   @media (prefers-reduced-motion: reduce) {
     *, .dock { transition: none !important; }
   }
+
+  /* ===== Proposal: form above the fold ===== */
+  .track img { aspect-ratio: 16 / 9; }
+  .dots { display: none; }
+  .intro { padding: 14px 20px 12px; }
+  h1 { font-size: clamp(1.375rem, 5.6vw, 1.75rem); line-height: 1.2; margin: 0 0 6px; }
+  .where { font-size: 1rem; margin: 0 0 4px; font-weight: 600; }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 6px 0 10px; padding: 0; list-style: none; }
+  .chips li { font-size: .8125rem; font-weight: 600; color: var(--mint); border: 1px solid rgba(227,237,231,.35); border-radius: 999px; padding: 2px 10px; line-height: 1.6; }
+  .strip { display: grid; grid-template-columns: 1.35fr 1fr 1fr 1fr; margin: 0; border: 1.5px solid rgba(227,237,231,.35); border-radius: var(--radius); }
+  .strip div { padding: 7px 4px; text-align: center; border-inline-start: 1px solid rgba(227,237,231,.25); }
+  .strip div:first-child { border-inline-start: 0; }
+  .strip dt { font-size: .75rem; color: var(--mint); font-weight: 500; line-height: 1.3; }
+  .strip dd { margin: 0; font-weight: 800; color: #fff; font-size: 1rem; line-height: 1.3; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .strip .p dd { color: var(--sky); font-size: 1.1875rem; }
+  .costs-l { margin: 6px 0 0; font-size: .875rem; color: var(--mint); text-align: center; }
+  .costs-l .sep { margin-inline: 8px; }
+  .visit { padding: 14px 20px 24px; border-top: 1px solid rgba(227,237,231,.18); }
+  .visit h2 { font-size: 1.25rem; margin: 0 0 2px; }
+  #visit > h2, #visit > p { text-align: start; margin-inline: 0; }
+  .visit .when { font-weight: 700; color: var(--sky); margin: 0 0 4px; font-variant-numeric: tabular-nums; }
+  .visit .intro-l2 { margin: 0 0 8px; font-size: .875rem; line-height: 1.5; }
+  .visit > * { max-width: none; }
+
+  .dock-in { display: flex; gap: 8px; width: 100%; max-width: 728px; }
+  .dock .go { flex: 1; width: auto; min-width: 0; white-space: nowrap; font-size: clamp(.875rem, 4vw, 1.0625rem); padding: 0 8px; }
+  .dock-wa { flex: none; display: flex; align-items: center; justify-content: center; gap: 6px; min-height: 52px; padding: 0 12px; border-radius: var(--radius); border: 1.5px solid var(--pine); color: var(--pine); background: #fff; font: 700 1rem var(--sans); text-decoration: none; }
+  .dock-wa svg { width: 20px; height: 20px; }
+  .dock-wa:hover { background: var(--mint); }
+
+  @media (min-width: 900px) {
+    .sheet { max-width: 1140px; display: grid; grid-template-columns: minmax(0, 1fr) 400px; align-items: start; }
+    .sheet > * { grid-column: 1; }
+    .sheet > .visit { grid-column: 2; grid-row: 1 / span 7; position: sticky; top: 0; min-height: 100vh; padding: 32px 28px; border-top: 0; }
+    .track img { aspect-ratio: 16 / 10; }
+    .intro { padding: 22px 40px 20px; }
+    h1 { font-size: 2rem; }
+    .strip dd { font-size: 1.125rem; }
+    .dock { display: none; }
+  }
 </style>
 </head>
 <body>
@@ -194,51 +234,23 @@
 
   <header class="intro">
     <h1>ללא תיווך! דירת 2 חדרים עורפית להשכרה בפלורנטין</h1>
-    <p class="where">ידידיה פרנקל 7א, תל אביב · בניין חדש · קומה 4/6, מעלית, ממ״ק, חניה רובוטית</p>
-    <div class="terms">
-      <span class="price">6,750 ₪ <small>לחודש</small></span>
-      <span class="meta"><span class="movein">כניסה ב-1.12</span><span class="sep" aria-hidden="true">|</span><span>39 מ״ר</span></span>
-      <span class="meta costs"><span>ועד בית 609 ₪</span><span class="sep" aria-hidden="true">|</span><span>ארנונה 352 ₪ לחודשיים</span></span>
-    </div>
+    <p class="where">ידידיה פרנקל 7א, תל אביב</p>
+    <ul class="chips" aria-label="הבניין">
+      <li>בניין חדש</li><li>מעלית</li><li>ממ״ק</li><li>חניה רובוטית</li>
+    </ul>
+    <dl class="strip">
+      <div class="p"><dt>שכירות לחודש</dt><dd>6,750 ₪</dd></div>
+      <div><dt>שטח</dt><dd>39 מ״ר</dd></div>
+      <div><dt>קומה</dt><dd>4/6</dd></div>
+      <div><dt>כניסה</dt><dd>1.12</dd></div>
+    </dl>
+    <p class="costs-l"><span>ועד בית 609 ₪</span><span class="sep" aria-hidden="true">|</span><span>ארנונה 352 ₪ לחודשיים</span></p>
   </header>
 
-  <section class="block" aria-labelledby="about-h">
-    <h2 id="about-h">על הדירה</h2>
-    <div class="lede">
-      <div class="para">
-        <p>דירת 2 חדרים עורפית בבניין חדש ברחוב ידידיה פרנקל, בלב פלורנטין.</p>
-        <p>הרחוב מחבר בין הרחובות המסחריים הוותיקים של השכונה לבין אזורי המגורים החדשים, ולאורכו בתי קפה, מסעדות ועסקים שכונתיים.</p>
-        <p>שוק לוינסקי, נווה צדק ומרכז העסקים של תל אביב במרחק הליכה קצרה, וגם קווי תחבורה ציבורית כולל הרכבת הקלה.</p>
-      </div>
-      <div class="para">
-        <p>הדירה בגודל 39 מ"ר בקומה 4 מתוך 6, עם מעלית.</p>
-        <p>הבניין נבנה בבנייה ירוקה, ויש בו 23 דירות.</p>
-        <p>חלונות גדולים בסלון ובחדר השינה ונוף לכיוון מערב.</p>
-        <p>פתחי הזכוכית הרחבים מכניסים הרבה אור טבעי, והחלונות פונים אל השקיעה.</p>
-        <p>הסלון והמטבח בחלל אחד, חדר שינה וחדר רחצה עם מקלחון וחלון לאיוורור.</p>
-      </div>
-      <div class="para">
-        <p>מטבח עם כיריים אינדוקציה והכנה למדיח כלים, מיזוג מרכזי ותריסים חשמליים בכל החלונות.</p>
-        <p>חניה רובוטית וממ״ק בקומה.</p>
-      </div>
-      <div class="para">
-        <p>דייר אחד בלבד גר בה עד כה.</p>
-        <p>הדירה מתוחזקת היטב ומוכנה לכניסה.</p>
-        <p>כניסה ב-1.12, חוזה לשנה עם אופציה לשנה נוספת.</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="video-sec" aria-label="סרטון">
-    <div class="video-block">
-      <figure class="video-wrap"><video src="assets/apartment-video.mp4" poster="assets/video-poster.jpg" controls muted playsinline loop preload="metadata" aria-label="סרטון סיור בדירה, 15 שניות, ללא קול"></video><figcaption><b>סרטון.</b> סיור קצר בדירה, 15 שניות</figcaption></figure>
-    </div>
-  </section>
-
   <section class="visit" id="visit" aria-labelledby="visit-h">
-    <h2 id="visit-h">לתיאום ביקור בדירה ביום רביעי, 18.11</h2>
-    <p class="intro-l">בין 18:00 ל-19:30, בתיאום מראש בלבד.</p>
-    <p>אשמח לכמה פרטים, ואחזור אליכם לאישור השעה.</p>
+    <h2 id="visit-h">לתיאום ביקור בדירה</h2>
+    <p class="when">יום רביעי, 18.11 · 18:00 עד 19:30</p>
+    <p class="intro-l2">בתיאום מראש בלבד. אשמח לכמה פרטים, ואחזור אליכם לאישור השעה.</p>
     <form class="form" novalidate>
       <div class="field" data-f="slot">
         <span class="lbl" id="slots-l">איזו שעה נוחה לכם?</span>
@@ -314,6 +326,41 @@
     </div>
   </section>
 
+  <section class="block" aria-labelledby="about-h">
+    <h2 id="about-h">על הדירה</h2>
+    <div class="lede">
+      <div class="para">
+        <p>דירת 2 חדרים עורפית בבניין חדש ברחוב ידידיה פרנקל, בלב פלורנטין.</p>
+        <p>הרחוב מחבר בין הרחובות המסחריים הוותיקים של השכונה לבין אזורי המגורים החדשים, ולאורכו בתי קפה, מסעדות ועסקים שכונתיים.</p>
+        <p>שוק לוינסקי, נווה צדק ומרכז העסקים של תל אביב במרחק הליכה קצרה, וגם קווי תחבורה ציבורית כולל הרכבת הקלה.</p>
+      </div>
+      <div class="para">
+        <p>הדירה בגודל 39 מ"ר בקומה 4 מתוך 6, עם מעלית.</p>
+        <p>הבניין נבנה בבנייה ירוקה, ויש בו 23 דירות.</p>
+        <p>חלונות גדולים בסלון ובחדר השינה ונוף לכיוון מערב.</p>
+        <p>פתחי הזכוכית הרחבים מכניסים הרבה אור טבעי, והחלונות פונים אל השקיעה.</p>
+        <p>הסלון והמטבח בחלל אחד, חדר שינה וחדר רחצה עם מקלחון וחלון לאיוורור.</p>
+      </div>
+      <div class="para">
+        <p>מטבח עם כיריים אינדוקציה והכנה למדיח כלים, מיזוג מרכזי ותריסים חשמליים בכל החלונות.</p>
+        <p>חניה רובוטית וממ״ק בקומה.</p>
+      </div>
+      <div class="para">
+        <p>דייר אחד בלבד גר בה עד כה.</p>
+        <p>הדירה מתוחזקת היטב ומוכנה לכניסה.</p>
+        <p>כניסה ב-1.12, חוזה לשנה עם אופציה לשנה נוספת.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="video-sec" aria-label="סרטון">
+    <div class="video-block">
+      <figure class="video-wrap"><video src="assets/apartment-video.mp4" poster="assets/video-poster.jpg" controls muted playsinline loop preload="metadata" aria-label="סרטון סיור בדירה, 15 שניות, ללא קול"></video><figcaption><b>סרטון.</b> סיור קצר בדירה, 15 שניות</figcaption></figure>
+    </div>
+  </section>
+
+  
+
   <section class="block" aria-labelledby="facts-h">
     <h2 id="facts-h">פרטי הדירה</h2>
     <table class="facts">
@@ -351,7 +398,13 @@
 </main>
 
 <div class="dock" aria-hidden="true">
-  <a class="go" href="#visit" tabindex="-1">לקביעת ביקור ביום רביעי, 18.11</a>
+  <div class="dock-in">
+    <a class="go" href="#visit" tabindex="-1">לקביעת ביקור ביום רביעי, 18.11</a>
+    <a class="dock-wa js-wa" href="#" target="_blank" rel="noopener" tabindex="-1" aria-label="שליחת הודעה בוואטסאפ">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20l1.3-3.9A8 8 0 1 1 8 18.7L4 20z"/><path d="M9.2 9.3c.3 1.9 1.6 3.3 3.5 3.9"/></svg>
+      <span>וואטסאפ</span>
+    </a>
+  </div>
 </div>
 
 <script>
@@ -468,7 +521,7 @@
   function setDock(show) {
     dock.classList.toggle("on", show);
     dock.setAttribute("aria-hidden", show ? "false" : "true");
-    dock.querySelector("a").tabIndex = show ? 0 : -1;
+    dock.querySelectorAll("a").forEach(function (a) { a.tabIndex = show ? 0 : -1; });
   }
   function checkDock() {
     var r = visit.getBoundingClientRect();
